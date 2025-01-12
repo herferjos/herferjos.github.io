@@ -4,6 +4,70 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Reporte de Noticias - Inteligencia Artificial</title>
         <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+
+        .image-container {
+            max-width: 500px;
+            max-height: 500px;
+            overflow: hidden;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+            object-fit: cover;
+        }
+
+        /* Popup */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-overlay img {
+            max-width: 100%;
+            max-height: 100%;
+            cursor: grab;
+            transition: transform 0.3s;
+        }
+
+        .popup-overlay.show {
+            display: flex;
+        }
+
+        /* Botón de cierre */
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            z-index: 1100;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+    </style>
     </head>
     <body class="bg-gray-50 font-sans text-gray-900">
         <header class="bg-blue-600 text-white text-center py-6">
@@ -12,7 +76,9 @@
 
         <main class="max-w-4xl mx-auto p-6 space-y-6">
         <section class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-2xl font-semibold mb-4">Avances en Inteligencia Artificial</h2><p class='mt-6'>No se necesitan bibliotecas de agentes para resolver problemas complejos de negocios. La arquitectura sin agentes adoptada por @OpenAI logra alta precisión en el SWE Bench, un conjunto de pruebas de problemas de ingeniería de software del @github.</p><img src="https://pbs.twimg.com/media/GhFm8j7WEAABjR-.jpg" alt="" class="w-full rounded-lg mb-4 mt-6"><p class='mt-6'>Más información sobre este enfoque se puede encontrar en el siguiente enlace:</p>
+                <h2 class="text-2xl font-semibold mb-4">Desarrollo de AI sin Agentes</h2><p class='mt-6'>No se necesitan bibliotecas de agentes para resolver problemas complejos de negocio. El marco sin agentes adoptado por @OpenAI busca la máxima precisión en el SWE Bench con o3. El SWE-bench es un conjunto de pruebas de problemas reales de ingeniería de software de @github.</p><div class="image-container">
+                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhFm8j7WEAABjR-.jpg)" alt="">
+                                </div><p class='mt-6'>Más información en:</p>
                         <div class="mt-6">
                             <button onclick="toggleDropdown(this)" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
                                 Ver enlace
@@ -25,7 +91,22 @@
                             </div>
                         </div>
                     </section><section class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-2xl font-semibold mb-4">Recursos para Aprender sobre IA</h2><p class='mt-6'>Ante la alta demanda de aprendizaje sobre IA, se ha creado la AI Academy. Esta plataforma ofrece un camino de aprendizaje recomendado que incluye prácticas de ingeniería de prompt.</p><img src="https://pbs.twimg.com/media/GhBmf0uXYAAfLHq.jpg" alt="" class="w-full rounded-lg mb-4 mt-6"><p class='mt-6'>Más detalles sobre la AI Academy y su contenido se encuentran en:</p>
+                <h2 class="text-2xl font-semibold mb-4">Nuevos Modelos de AI</h2><p class='mt-6'>Se está entrenando un modelo con un conjunto de datos de imágenes de ~1TB y ~12M de muestras, transmitido directamente desde el HF hub.</p><p class='mt-6'>Más detalles en:</p>
+                        <div class="mt-6">
+                            <button onclick="toggleDropdown(this)" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
+                                Ver enlace
+                            </button>
+                            <div class="hidden mt-2">
+                                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">So this is pretty wild, training with a ~1TB, ~12M sample image dataset, streaming directly from the HF hub over my fibre internet connection... works! Go go webdatset. Supported in timm via webdataset wrapper with curl pipes or <a href="https://twitter.com/huggingface?ref_src=twsrc%5Etfw">@huggingface</a> datasets streaming wrapper... <a href="https://t.co/MiLo77DpdZ">pic.twitter.com/MiLo77DpdZ</a></p>&mdash; Ross Wightman (@wightmanr) <a href="https://twitter.com/wightmanr/status/1743083207443267759?ref_src=twsrc%5Etfw">January 5, 2024</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+                            </div>
+                        </div>
+                    </section><section class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-2xl font-semibold mb-4">Educación en AI</h2><p class='mt-6'>Se han recibido muchas preguntas sobre dónde aprender a construir con AI. Se ha creado la AI Academy para proporcionar recursos actualizados.</p><div class="image-container">
+                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhBmf0uXYAAfLHq.jpg)" alt="">
+                                </div><p class='mt-6'>Más información en:</p>
                         <div class="mt-6">
                             <button onclick="toggleDropdown(this)" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
                                 Ver enlace
@@ -38,36 +119,9 @@
                             </div>
                         </div>
                     </section><section class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-2xl font-semibold mb-4">Desarrollo de Modelos de IA Abiertos</h2><p class='mt-6'>El modelo Sky-T1-32B-Preview, un modelo similar a O1, se puede entrenar por menos de 450 dólares. Este modelo ha demostrado un rendimiento competitivo en tareas de razonamiento y codificación, con resultados destacados en Math500 y LiveCode-East.</p><img src="https://pbs.twimg.com/media/GhCArGrXYAAWmWU.jpg" alt="" class="w-full rounded-lg mb-4 mt-6"><p class='mt-6'>Para más información sobre este modelo, visita:</p>
-                        <div class="mt-6">
-                            <button onclick="toggleDropdown(this)" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
-                                Ver enlace
-                            </button>
-                            <div class="hidden mt-2">
-                                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">17000 datapoints and a CRACKED (Qwen) base model is between you and o1 at home <a href="https://t.co/y515469Vf9">https://t.co/y515469Vf9</a> <a href="https://t.co/lovmuiKsoB">pic.twitter.com/lovmuiKsoB</a></p>&mdash; Vaibhav (VB) Srivastav (@reach_vb) <a href="https://twitter.com/reach_vb/status/1878142527116620043?ref_src=twsrc%5Etfw">January 11, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-                            </div>
-                        </div>
-                    </section><section class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-2xl font-semibold mb-4">Experimentación con Modelos de IA</h2><p class='mt-6'>Un experimento reciente consistió en transformar versos del poema 'The Lady of Shalott' en clips de video. Este ejercicio demuestra las capacidades creativas de la IA en la generación de contenido multimedia.</p><video controls class="w-full rounded-lg mb-4 mt-6">
-                                    <source src="https://video.twimg.com/ext_tw_video/1878325593894162432/pu/vid/avc1/1280x720/k4ioUJ3tiMMiPxqr.mp4?tag=12" type="video/mp4">
-                                    Tu navegador no soporta la reproducción de este video.
-                                </video><p class='mt-6'>Más sobre este experimento se puede ver aquí:</p>
-                        <div class="mt-6">
-                            <button onclick="toggleDropdown(this)" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
-                                Ver enlace
-                            </button>
-                            <div class="hidden mt-2">
-                                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Trying a little experiment: &quot;Hey, Claude, turn the first four stanzas of The Lady of Shalott into a film by describing 8 second clips...&quot;<br><br>I pasted those into veo 2 verbatim &amp; overlayed the poem (I also asked for one more scene revealing the Lady, again using the verbatim prompt) <a href="https://t.co/VgHzxMVzg3">pic.twitter.com/VgHzxMVzg3</a></p>&mdash; Ethan Mollick (@emollick) <a href="https://twitter.com/emollick/status/1878325843052695573?ref_src=twsrc%5Etfw">January 12, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-                            </div>
-                        </div>
-                    </section><section class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-2xl font-semibold mb-4">Críticas a la Cobertura Mediática de la IA</h2><p class='mt-6'>Se ha criticado la falta de profundidad en la cobertura mediática sobre el riesgo existencial de la IA. Se menciona que algunos informes simplemente copian datos públicos sin agregar valor.</p><img src="https://pbs.twimg.com/media/GhF38cNboAAn5Mt.png" alt="" class="w-full rounded-lg mb-4 mt-6"><p class='mt-6'>Para leer más sobre esta crítica, visita:</p>
+                <h2 class="text-2xl font-semibold mb-4">Críticas a la Cobertura Mediática de AI</h2><p class='mt-6'>Hay críticas sobre la falta de originalidad en la cobertura mediática relacionada con el riesgo existencial de AI. Se menciona que algunos periodistas solo copian datos públicos sin agregar valor.</p><div class="image-container">
+                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhF38cNboAAn5Mt.png)" alt="">
+                                </div><p class='mt-6'>Más información en:</p>
                         <div class="mt-6">
                             <button onclick="toggleDropdown(this)" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
                                 Ver enlace
@@ -80,7 +134,37 @@
                             </div>
                         </div>
                     </section><section class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-2xl font-semibold mb-4">Desarrollo de Tutoriales con IA</h2><p class='mt-6'>Se ha lanzado Quantalogic, una herramienta que permite crear documentación lista para producción utilizando agentes impulsados por IA. También se están generando tutoriales sobre cómo usar esta tecnología.</p><p class='mt-6'>Para más información, consulta:</p>
+                <h2 class="text-2xl font-semibold mb-4">Modelos de AI Abiertos</h2><p class='mt-6'>Un nuevo modelo llamado Sky-T1-32B-Preview, entrenado por menos de 450$, logra un rendimiento competitivo en razonamiento y codificación. Es completamente de código abierto con 17K de datos de entrenamiento.</p><div class="image-container">
+                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhCArGrXYAAWmWU.jpg)" alt="">
+                                </div><p class='mt-6'>Más información en:</p>
+                        <div class="mt-6">
+                            <button onclick="toggleDropdown(this)" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
+                                Ver enlace
+                            </button>
+                            <div class="hidden mt-2">
+                                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">17000 datapoints and a CRACKED (Qwen) base model is between you and o1 at home <a href="https://t.co/y515469Vf9">https://t.co/y515469Vf9</a> <a href="https://t.co/lovmuiKsoB">pic.twitter.com/lovmuiKsoB</a></p>&mdash; Vaibhav (VB) Srivastav (@reach_vb) <a href="https://twitter.com/reach_vb/status/1878142527116620043?ref_src=twsrc%5Etfw">January 11, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+                            </div>
+                        </div>
+                    </section><section class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-2xl font-semibold mb-4">Experimentación con AI</h2><p class='mt-6'>Se están realizando experimentos con modelos AI para transformar poemas en videos. Se busca explorar la creatividad a través de la AI.</p><div class="image-container">
+                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhEb5PHWkAAHPnh.jpg)" alt="">
+                                </div><p class='mt-6'>Más información en:</p>
+                        <div class="mt-6">
+                            <button onclick="toggleDropdown(this)" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
+                                Ver enlace
+                            </button>
+                            <div class="hidden mt-2">
+                                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Thinking about the end of boredom: boredom sparks creativity but only when people are open to new experiences &amp; believe that they are in control of what happens to them.<br><br>...but for the most part, it makes people do whatever they can for amusement, including acting sadistically. <a href="https://t.co/BMFbLha1ix">pic.twitter.com/BMFbLha1ix</a></p>&mdash; Ethan Mollick (@emollick) <a href="https://twitter.com/emollick/status/1878314285899669995?ref_src=twsrc%5Etfw">January 12, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+                            </div>
+                        </div>
+                    </section><section class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-2xl font-semibold mb-4">Creación de Tutoriales con AI</h2><p class='mt-6'>Se ha publicado un tutorial sobre cómo crear documentación lista para producción con agentes AI. Se anima a los usuarios a generar sus propios tutoriales utilizando el marco de AI Quantalogic.</p><p class='mt-6'>Más información en:</p>
                         <div class="mt-6">
                             <button onclick="toggleDropdown(this)" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
                                 Ver enlace
@@ -93,17 +177,93 @@
                             </div>
                         </div>
                     </section>
-    <script>
-        function toggleDropdown(button) {
-            const dropdown = button.nextElementSibling;
-            if (dropdown.classList.contains("hidden")) {
-                dropdown.classList.remove("hidden");
-            } else {
-                dropdown.classList.add("hidden");
+       <script>
+            // Elementos del DOM
+            const thumbnail = document.getElementById('thumbnail');
+            const popup = document.getElementById('popup');
+            const popupImage = document.getElementById('popup-image');
+            const closeBtn = document.getElementById('close-btn');
+
+            // Variables para el zoom
+            let isZoomedIn = false;
+            let isDragging = false;
+            let startX, startY, translateX = 0, translateY = 0;
+
+            // Evento para mostrar el popup
+            thumbnail.addEventListener('click', () => {
+                popupImage.src = thumbnail.src; // Carga la imagen
+                popup.classList.add('show'); // Muestra el popup
+            });
+
+            // Evento para cerrar el popup
+            closeBtn.addEventListener('click', () => {
+                popup.classList.remove('show');
+                resetZoom();
+            });
+
+            // Click para alternar entre zoom in y zoom out
+            popupImage.addEventListener('click', () => {
+                if (isZoomedIn) {
+                    resetZoom();
+                } else {
+                    zoomIn();
+                }
+            });
+
+            // Drag para mover la imagen mientras está ampliada
+            popupImage.addEventListener('mousedown', (e) => {
+                if (!isZoomedIn) return;
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+                popupImage.style.cursor = 'grabbing';
+            });
+
+            popupImage.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateTransform();
+            });
+
+            popupImage.addEventListener('mouseup', () => {
+                isDragging = false;
+                popupImage.style.cursor = 'grab';
+            });
+
+            popupImage.addEventListener('mouseleave', () => {
+                isDragging = false;
+                popupImage.style.cursor = 'grab';
+            });
+
+            // Funciones de zoom
+            function zoomIn() {
+                isZoomedIn = true;
+                popupImage.style.transform = `scale(2)`;
+                popupImage.style.cursor = 'grab';
             }
-        }
-    </script>
-    
+
+            function resetZoom() {
+                isZoomedIn = false;
+                translateX = 0;
+                translateY = 0;
+                popupImage.style.transform = `scale(1)`;
+            }
+
+            // Actualizar posición durante el drag
+            function updateTransform() {
+                popupImage.style.transform = `scale(2) translate(${translateX}px, ${translateY}px)`;
+            }
+
+            function toggleDropdown(button) {
+                const dropdown = button.nextElementSibling;
+                if (dropdown.classList.contains("hidden")) {
+                    dropdown.classList.remove("hidden");
+                } else {
+                    dropdown.classList.add("hidden");
+                }
+            }
+        </script>
         </main>
 
         <footer class="bg-blue-600 text-white text-center py-4">
