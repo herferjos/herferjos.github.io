@@ -34,13 +34,23 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            overflow: hidden;
         }
 
         .popup-overlay img {
-            max-width: 100%;
-            max-height: 100%;
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            transition: transform 0.2s ease-out;
+            cursor: zoom-in;
+        }
+
+        .popup-overlay.zoomed img {
             cursor: grab;
-            transition: transform 0.3s;
+        }
+
+        .popup-overlay.zoomed.grabbing img {
+            cursor: grabbing;
         }
 
         .popup-overlay.show {
@@ -64,7 +74,7 @@
 
         /* Estilo específico para el botón de cierre del popup de contenido */
         #close-btn-content {
-            position: relative;
+            position: absolute;
             top: 10px;
             right: 10px;
             background: #ff5555;
@@ -77,9 +87,8 @@
             justify-content: center;
             font-size: 16px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            float: right;
-            margin-bottom: -160px;
-            margin-right: -15px
+            cursor: pointer;
+            z-index: 1100;
         }
 
         #close-btn-content:hover {
@@ -116,6 +125,11 @@
         #popup-html-content::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+
+        /* Contenedor del tweet */
+        #tweet-content-container {
+            margin-top: 30px;
+        }
     </style>
 </head>
 
@@ -126,7 +140,7 @@
 
     <main class="max-w-4xl mx-auto p-6 space-y-6">
         <section class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-3xl font-bold mb-4 underline text-center">Modelos y Desarrollo de IA</h2><br></br>
+                <h2 class="text-3xl font-bold mb-4 underline text-center">Modelos de IA</h2><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -143,7 +157,7 @@
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>DeepSeek ha publicado sus modelos R1 de manera open source, ofreciendo una alternativa competitiva a los modelos de OpenAI. Estos modelos prometen un rendimiento comparable al de o1 de OpenAI y están disponibles para la comunidad.</p><br></br><div class="image-container">
+            </div><p class='mt-6'>DeepSeek ha publicado sus modelos R1 de manera open source, ofreciendo una alternativa competitiva a los modelos de OpenAI. Estos modelos prometen un rendimiento comparable al de o1 de OpenAI, pero a un costo más accesible.</p><br></br><div class="image-container">
                                     <img id="thumbnail" src="https://pbs.twimg.com/media/GhvN2pvXUAAOkqD.png" alt="">
                                 </div><br></br><br></br>
             <div class="flex items-center gap-4">
@@ -155,15 +169,32 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Nuevas funciones en la app de ChatGPT para macOS</h3>
+                <h3 class="text-2xl font-semibold mb-4">Modelos de IA y Resultados de Desempeño</h3>
             </div>
             <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="es" dir="ltr">Menciones a Operator (&quot;agentes&quot;) en la app de mac de ChatGPT <a href="https://t.co/C5AbXivSFW">https://t.co/C5AbXivSFW</a></p>&mdash; Carlos Santana (@DotCSV) <a href="https://twitter.com/DotCSV/status/1881111338090709296?ref_src=twsrc%5Etfw">January 19, 2025</a></blockquote>
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">A 1.5B model achieving 28% on AIME, 33.8% on GPQAm 16.9% on LiveCodeBench and 954 on CodeForces.🤯<a href="https://t.co/PlwIxHM5bb">https://t.co/PlwIxHM5bb</a></p>&mdash; Philipp Schmid (@_philschmid) <a href="https://twitter.com/_philschmid/status/1881320402640928837?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>La aplicación de ChatGPT para macOS incluye opciones ocultas para definir atajos que permiten activar y forzar la salida de "Operator", sugiriendo nuevas capacidades en la interfaz de usuario.</p><br></br><div class="image-container">
-                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhsLu6jWEAAQJNO.jpg" alt="">
+            </div><p class='mt-6'>Un modelo de 1.5B ha alcanzado un 28% en AIME, 33.8% en GPQAm y 954 en CodeForces. Esto demuestra el avance en el desempeño de modelos de IA en competiciones de codificación. <a href="https://x.com/_philschmid/status/1881320402640928837">Leer más</a></p><br></br><br></br>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleDropdown(this)"
+                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <h3 class="text-2xl font-semibold mb-4">Nuevos Modelos de DeepSeek</h3>
+            </div>
+            <div class="hidden mt-2">
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">The new distilled <a href="https://twitter.com/deepseek_ai?ref_src=twsrc%5Etfw">@deepseek_ai</a> models are fine-tuned versions of <a href="https://twitter.com/Alibaba_Qwen?ref_src=twsrc%5Etfw">@Alibaba_Qwen</a> or <a href="https://twitter.com/AIatMeta?ref_src=twsrc%5Etfw">@AIatMeta</a> Llama 3 using  800k samples curated with DeepSeek-R1. (no RL stage) <a href="https://t.co/2ytEgzZIvv">pic.twitter.com/2ytEgzZIvv</a></p>&mdash; Philipp Schmid (@_philschmid) <a href="https://twitter.com/_philschmid/status/1881319751680733238?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div>
+            </div><p class='mt-6'>DeepSeek ha lanzado versiones afinadas de los modelos de Alibaba y Meta, utilizando 800k muestras. Estos modelos están diseñados para ser más eficientes sin una etapa de refuerzo. <a href="https://x.com/_philschmid/status/1881319751680733238">Leer más</a></p><br></br><div class="image-container">
+                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhvKRBgXQAAiAHh.png" alt="">
                                 </div><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
@@ -174,14 +205,14 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Nuevos modelos de DeepSeek</h3>
+                <h3 class="text-2xl font-semibold mb-4">Lanzamiento de modelos DeepSeek-R1</h3>
             </div>
             <div class="hidden mt-2">
                 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">RL and open-source for the win!<br><br>The DeepSeek-R1 is a beast though. It still relies on multi-stage training and cold-start data before RL. <br><br>&quot;DeepSeek-R1 achieves performance comparable to OpenAI-o1-1217 on reasoning tasks&quot; <a href="https://t.co/yHgdDN4M1t">https://t.co/yHgdDN4M1t</a> <a href="https://t.co/Ge42ZFq67D">pic.twitter.com/Ge42ZFq67D</a></p>&mdash; elvis (@omarsar0) <a href="https://twitter.com/omarsar0/status/1881363356982153541?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>DeepSeek ha lanzado su modelo R1, el cual es completamente open-source y ha demostrado un rendimiento comparable al modelo OpenAI-o1-1217 en tareas de razonamiento. Esta iniciativa permite a la comunidad experimentar con modelos más pequeños y accesibles.</p><br></br><div class="image-container">
+            </div><p class='mt-6'>DeepSeek ha lanzado su modelo R1, que presenta un rendimiento comparable al modelo OpenAI-o1-1217 en tareas de razonamiento. Este modelo es completamente open-source y está disponible bajo licencia MIT, permitiendo su distillación y comercialización libre.</p><br></br><div class="image-container">
                                     <img id="thumbnail" src="https://pbs.twimg.com/media/GhvxQrTWgAIbsuy.png" alt="">
                                 </div><br></br><div class="image-container">
                                     <img id="thumbnail" src="https://pbs.twimg.com/media/GhvI3AoaAAAw-4z.png" alt="">
@@ -195,14 +226,14 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Introducción de Kimi k1.5: Un modelo multi-modal de última generación</h3>
+                <h3 class="text-2xl font-semibold mb-4">Nuevas características de Kimi k1.5</h3>
             </div>
             <div class="hidden mt-2">
                 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">🚀 Introducing Kimi k1.5 --- an o1-level multi-modal model<br><br>-Sota short-CoT performance, outperforming GPT-4o and Claude Sonnet 3.5 on 📐AIME, 📐MATH-500, 💻 LiveCodeBench by a large margin (up to +550%)<br>-Long-CoT performance matches o1 across multiple modalities (👀MathVista,… <a href="https://t.co/ZbMcljcsSV">pic.twitter.com/ZbMcljcsSV</a></p>&mdash; Kimi.ai (@Kimi_ai_) <a href="https://twitter.com/Kimi_ai_/status/1881332472748851259?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>El nuevo modelo Kimi k1.5 ha sido lanzado, destacándose por su rendimiento superior en tareas de razonamiento a corto plazo, superando a modelos como GPT-4o y Claude. Este avance en IA multi-modal promete mejorar significativamente la interacción con datos diversos y complejos.</p><br></br><br></br>
+            </div><p class='mt-6'><strong>Introducing Kimi k1.5:</strong> Un modelo multi-modal de nivel o1 que supera a GPT-4o y Claude Sonne en rendimiento. Este avance en IA promete mejorar la calidad de las interacciones y aplicaciones en diversos campos.</p><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -212,14 +243,17 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">OpenAI CEO Briefs U.S. Government on AI Breakthrough</h3>
+                <h3 class="text-2xl font-semibold mb-4">Desafíos en la escalabilidad de modelos de IA</h3>
             </div>
             <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">if this doesn&#39;t kill everyone, then I am 0% personally concerned about my moneymaking prospects. diffusion is slow because most people will never admit AI can be useful. <a href="https://t.co/yUOyDRbOlV">https://t.co/yUOyDRbOlV</a></p>&mdash; Minh Nhat Nguyen (@menhguin) <a href="https://twitter.com/menhguin/status/1881105045439266909?ref_src=twsrc%5Etfw">January 19, 2025</a></blockquote>
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">benchmark idea: what is there was a way to automatically scrape+ index problems by level of complexity * how rare the required solution steps are to find on the internet? this way you also don&#39;t have to painstakingly make harder and harder evals <a href="https://t.co/gTXBxIfmNm">https://t.co/gTXBxIfmNm</a></p>&mdash; Minh Nhat Nguyen (@menhguin) <a href="https://twitter.com/menhguin/status/1881353800847622422?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Random speculation: if model scaling allows more params to capture richer more diverse representations within a large dataset, then a bottleneck to pure scaling is how well we can test the countless tail-end capabilities Dario Amodei talkes about.</p>&mdash; Minh Nhat Nguyen (@menhguin) <a href="https://twitter.com/menhguin/status/1881334840018309343?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Sam Altman, CEO of OpenAI, has scheduled a closed-door briefing for U.S. government officials on January 30. Insiders speculate that significant advancements in AI, particularly regarding PHD-level SuperAgents, are on the horizon. This comes amidst ongoing debates about the practical utility of AI technologies.</p><br></br><br></br>
+            </div><p class='mt-6'>Se plantea la idea de que si la escalabilidad de modelos permite capturar representaciones más ricas y diversas, un posible cuello de botella es la capacidad de probar las numerosas capacidades de cola mencionadas por Dario Amodei.</p><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -229,20 +263,22 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">DeepSeek-R1: Un Modelo Abierto que Compite con OpenAI</h3>
+                <h3 class="text-2xl font-semibold mb-4">Desarrollo de Modelos de IA: DeepSeek-R1</h3>
             </div>
             <div class="hidden mt-2">
                 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">🚀 DeepSeek-R1 is here!<br><br>⚡ Performance on par with OpenAI-o1<br>📖 Fully open-source model &amp; technical report<br>🏆 MIT licensed: Distill &amp; commercialize freely!<br><br>🌐 Website &amp; API are live now! Try DeepThink at <a href="https://t.co/v1TFy7LHNy">https://t.co/v1TFy7LHNy</a> today!<br><br>🐋 1/n <a href="https://t.co/7BlpWAPu6y">pic.twitter.com/7BlpWAPu6y</a></p>&mdash; DeepSeek (@deepseek_ai) <a href="https://twitter.com/deepseek_ai/status/1881318130334814301?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Try out R1 Distill Qwen 1.5B in a FREE Google Colab! 🔥<br><br>The vibes are looking gooood! <a href="https://t.co/IQApPfEjzG">https://t.co/IQApPfEjzG</a> <a href="https://t.co/dXvYLoOFuk">pic.twitter.com/dXvYLoOFuk</a></p>&mdash; Vaibhav (VB) Srivastav (@reach_vb) <a href="https://twitter.com/reach_vb/status/1881377609445167380?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Evaluations from the <a href="https://twitter.com/deepseek_ai?ref_src=twsrc%5Etfw">@deepseek_ai</a> paper 💥<br><br>DeepSeek-R1-Zero vs. OpenAI-o1-0912:<br><br>&gt; R1-Zero achieves 71.0% pass@1 on AIME 2024, comparable to OpenAI-o1-0912 (74.4%)<br>&gt; With majority voting, DeepSeek-R1-Zero reaches 86.7%, surpassing OpenAI-o1-0912<br><br>DeepSeek-R1 vs. OpenAI-o1-1217:… <a href="https://t.co/HLE4DND0Mi">https://t.co/HLE4DND0Mi</a></p>&mdash; Vaibhav (VB) Srivastav (@reach_vb) <a href="https://twitter.com/reach_vb/status/1881340583358161148?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>DeepSeek-R1 ha sido lanzado como un modelo completamente open-source que promete un rendimiento comparable al de OpenAI-o1. Este modelo ha demostrado resultados sobresalientes en benchmarks de matemáticas, superando a modelos establecidos como GPT-4o y Claude-3.5-Sonnet.</p><br></br><video controls class="w-full rounded-lg mb-4 mt-6">
+            </div><p class='mt-6'><b>DeepSeek-R1</b> ha sido presentado como un modelo de IA de código abierto que promete un rendimiento comparable al de OpenAI-o1. Este modelo ha demostrado resultados sobresalientes en benchmarks matemáticos, superando a modelos previos en pruebas específicas. El análisis comparativo indica que <i>DeepSeek-R1-Zero</i> alcanza un 71.0% en AIME 2024, mientras que <i>DeepSeek-R1</i> logra un 86.7% con votación mayoritaria, superando a OpenAI-o1-0912.</p><br></br><video controls class="w-full rounded-lg mb-4 mt-6">
                                     <source src="https://video.twimg.com/ext_tw_video/1881377422135676928/pu/vid/avc1/1670x1080/wUafm6PII4xXizvR.mp4?tag=14" type="video/mp4">
                                     Tu navegador no soporta la reproducción de este video.
-                                </video><br></br><br></br>
+                                </video><br></br><div class="image-container">
+                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhuC8jKWkAACqPf.jpg" alt="">
+                                </div><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -252,14 +288,50 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Nuevos Modelos de Lenguaje Abierto</h3>
+                <h3 class="text-2xl font-semibold mb-4">Comparativa de Rendimiento en IA</h3>
+            </div>
+            <div class="hidden mt-2">
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Try out R1 Distill Qwen 1.5B in a FREE Google Colab! 🔥<br><br>The vibes are looking gooood! <a href="https://t.co/IQApPfEjzG">https://t.co/IQApPfEjzG</a> <a href="https://t.co/dXvYLoOFuk">pic.twitter.com/dXvYLoOFuk</a></p>&mdash; Vaibhav (VB) Srivastav (@reach_vb) <a href="https://twitter.com/reach_vb/status/1881377609445167380?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div>
+            </div><p class='mt-6'>Recientes evaluaciones han mostrado que el modelo <i>DeepSeek-R1</i> supera a otros modelos como <i>GPT-4o</i> y <i>Claude-3.5-Sonnet</i> en pruebas matemáticas, destacando un rendimiento del 28.9% en AIME y 83.9% en MATH. Estos resultados subrayan la creciente competencia en el desarrollo de modelos de inteligencia artificial.</p><br></br><br></br>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleDropdown(this)"
+                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <h3 class="text-2xl font-semibold mb-4">DeepSeek-R1-Distill-Qwen-1.5B Supera a GPT-4o y Claude-3.5-Sonnet en Benchmarks Matemáticos</h3>
+            </div>
+            <div class="hidden mt-2">
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">&quot;DeepSeek-R1-Distill-Qwen-1.5B outperforms GPT-4o and Claude-3.5-Sonnet on math benchmarks with 28.9% on AIME and 83.9% on MATH.&quot;<br><br>1.5B did WHAT? <a href="https://t.co/Pk6fOJNma2">pic.twitter.com/Pk6fOJNma2</a></p>&mdash; Vaibhav (VB) Srivastav (@reach_vb) <a href="https://twitter.com/reach_vb/status/1881319500089634954?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div>
+            </div><p class='mt-6'>El modelo <b>DeepSeek-R1-Distill-Qwen-1.5B</b> ha demostrado un rendimiento superior en benchmarks matemáticos, alcanzando un <strong>28.9%</strong> en AIME y un <strong>83.9%</strong> en MATH, superando así a <b>GPT-4o</b> y <b>Claude-3.5-Sonnet</b>. Esta información resalta el avance en el desarrollo de modelos de lenguaje de código abierto.</p><br></br><div class="image-container">
+                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhvJ-_XWYAAHmxB.png" alt="">
+                                </div><br></br><br></br>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleDropdown(this)"
+                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <h3 class="text-2xl font-semibold mb-4">Desarrollo de Modelos de Lenguaje Distillados por DeepSeek</h3>
             </div>
             <div class="hidden mt-2">
                 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">holy fuck, these gigachads dropped 6 distilled models right from 1.5B to 70B 🔥 <a href="https://t.co/DYq0cobPiq">pic.twitter.com/DYq0cobPiq</a></p>&mdash; Vaibhav (VB) Srivastav (@reach_vb) <a href="https://twitter.com/reach_vb/status/1881315419086291213?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Se han lanzado 6 modelos de lenguaje distilados, con tamaños que varían desde 1.5B hasta 70B de parámetros. Esto marca un avance significativo en el desarrollo de LLMs (Large Language Models) abiertos, con el potencial de superar a competidores como Sonnet.</p><br></br><div class="image-container">
+            </div><p class='mt-6'>DeepSeek ha lanzado <b>6 modelos destilados</b> que van desde <strong>1.5B</strong> hasta <strong>70B</strong> de parámetros, lo que indica un progreso significativo en la creación de modelos de lenguaje más eficientes y potentes. Este avance es un indicativo de la tendencia hacia la optimización de modelos en el ámbito de la inteligencia artificial.</p><br></br><div class="image-container">
                                     <img id="thumbnail" src="https://pbs.twimg.com/media/GhvGQGJWEAEa1fe.jpg" alt="">
                                 </div><br></br><br></br>
             <div class="flex items-center gap-4">
@@ -271,32 +343,18 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Lanzamiento de DeepSeek-R1: Un Modelo Open Source Competitivo</h3>
+                <h3 class="text-2xl font-semibold mb-4">DeepSeek lanza modelos R1 con precios competitivos</h3>
             </div>
             <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">🚀 DeepSeek-R1 is here!<br><br>⚡ Performance on par with OpenAI-o1<br>📖 Fully open-source model &amp; technical report<br>🏆 MIT licensed: Distill &amp; commercialize freely!<br><br>🌐 Website &amp; API are live now! Try DeepThink at <a href="https://t.co/v1TFy7LHNy">https://t.co/v1TFy7LHNy</a> today!<br><br>🐋 1/n <a href="https://t.co/7BlpWAPu6y">pic.twitter.com/7BlpWAPu6y</a></p>&mdash; DeepSeek (@deepseek_ai) <a href="https://twitter.com/deepseek_ai/status/1881318130334814301?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Wow! Deepseeks R1 is over 27x cheaper than 01 🤯<br><br>Deepseek Reasoner<br>• $0.55 / 1M Input<br>• $2.19 / 1M Output<br><br>OpenAI 01<br>• $15 / 1M Input<br>• $60 / 1M Output<br><br>and you have tons of opens if you want an alternative for 01-mini with the R1 distilled models</p>&mdash; Caleb (@calebfahlgren) <a href="https://twitter.com/calebfahlgren/status/1881332657885413886?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Deepseek drops<br><br>- Deepseek-R1<br>- Deepseek-R1-0<br>- R1-Distilled Llama and Qwen models<br><br>This is all after releasing the wonderful Deepseek-V3 less than a month ago. <br><br>Somebody woke up the whale 🐳 <a href="https://t.co/rV3FUN2FCi">https://t.co/rV3FUN2FCi</a></p>&mdash; Caleb (@calebfahlgren) <a href="https://twitter.com/calebfahlgren/status/1881321677277024550?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'><b>DeepSeek-R1</b> ha sido lanzado, ofreciendo un rendimiento comparable al de <i>OpenAI-o1</i>. Este modelo es completamente <strong>open-source</strong> y se encuentra bajo licencia <u>MIT</u>. La comunidad puede acceder a su <strong>informe técnico</strong> para más detalles.</p><br></br><br></br>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleDropdown(this)"
-                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                </button>
-                <h3 class="text-2xl font-semibold mb-4">Simplificación de la Optimización de Preferencias Directas</h3>
-            </div>
-            <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Tried my hand at simplifying the derivations of Direct Preference Optimization.<br><br>I cover how one can reformulate RLHF into DPO. The idea of implicit reward modeling is chef&#39;s kiss. <a href="https://t.co/XNq7dccOPs">pic.twitter.com/XNq7dccOPs</a></p>&mdash; Aritra Roy Gosthipaty (@ariG23498) <a href="https://twitter.com/ariG23498/status/1881064197389488432?ref_src=twsrc%5Etfw">January 19, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div>
-            </div><p class='mt-6'>Un investigador ha presentado un enfoque simplificado para las derivaciones de la <strong>Optimización de Preferencias Directas (DPO)</strong>, reformulando el <strong>Reinforcement Learning from Human Feedback (RLHF)</strong> en DPO, destacando la modelación de recompensas implícitas como un avance notable.</p><br></br><div class="image-container">
-                                    <img id="thumbnail" src="https://pbs.twimg.com/media/Ghrhp1takAABHso.jpg" alt="">
+            </div><p class='mt-6'>DeepSeek ha presentado su serie de modelos R1, destacándose por ser más de 27 veces más económicos que el modelo 01 de OpenAI. Los precios son $0.55 por 1M de entradas y $2.19 por 1M de salidas. Además, los modelos R1 están disponibles bajo licencia MIT, lo que permite su uso y modificación libre.</p><br></br><div class="image-container">
+                                    <img id="thumbnail" src="https://pbs.twimg.com/media/Ghvv9VlWAAAthdt.jpg" alt="">
                                 </div><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
@@ -307,14 +365,65 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Deepseek-R1: Nuevo modelo de razonamiento abierto</h3>
+                <h3 class="text-2xl font-semibold mb-4">Benchmarking de modelos de IA</h3>
+            </div>
+            <div class="hidden mt-2">
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Really like seeing R1 beating newsonnet in almost all of the code benchmarks, while being really close to 01.<br><br>Also super nice to see the Aider benchmark being included more and more in model releases. Great work <a href="https://twitter.com/paulgauthier?ref_src=twsrc%5Etfw">@paulgauthier</a> <a href="https://t.co/oZOmjarKaH">pic.twitter.com/oZOmjarKaH</a></p>&mdash; Caleb (@calebfahlgren) <a href="https://twitter.com/calebfahlgren/status/1881361559659958415?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div>
+            </div><p class='mt-6'>El modelo R1 de DeepSeek ha superado a Newsonnet en varios benchmarks de código, acercándose al rendimiento del modelo 01. Además, se ha comenzado a incluir el benchmark Aider en más lanzamientos de modelos, lo que refleja una tendencia hacia la mejora continua en la evaluación de modelos de IA.</p><br></br><br></br>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleDropdown(this)"
+                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <h3 class="text-2xl font-semibold mb-4">Acceso y guía de API de DeepSeek</h3>
+            </div>
+            <div class="hidden mt-2">
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Source<a href="https://t.co/CnpY3Mf6nl">https://t.co/CnpY3Mf6nl</a></p>&mdash; Caleb (@calebfahlgren) <a href="https://twitter.com/calebfahlgren/status/1881333186615222776?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div>
+            </div><p class='mt-6'>DeepSeek ha proporcionado acceso a su API para el modelo R1, con precios de $0.14 por millón de tokens de entrada en caso de cache hit y $0.55 en cache miss. La guía de API está disponible para los desarrolladores interesados en integrar este modelo en sus aplicaciones.</p><br></br><br></br>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleDropdown(this)"
+                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <h3 class="text-2xl font-semibold mb-4">Nuevos Modelos de IA Abiertos</h3>
+            </div>
+            <div class="hidden mt-2">
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">🚀 DeepSeek-R1 is here!<br><br>⚡ Performance on par with OpenAI-o1<br>📖 Fully open-source model &amp; technical report<br>🏆 MIT licensed: Distill &amp; commercialize freely!<br><br>🌐 Website &amp; API are live now! Try DeepThink at <a href="https://t.co/v1TFy7LHNy">https://t.co/v1TFy7LHNy</a> today!<br><br>🐋 1/n <a href="https://t.co/7BlpWAPu6y">pic.twitter.com/7BlpWAPu6y</a></p>&mdash; DeepSeek (@deepseek_ai) <a href="https://twitter.com/deepseek_ai/status/1881318130334814301?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div>
+            </div><p class='mt-6'>El modelo <strong>DeepSeek-R1</strong> ha sido lanzado, mostrando un rendimiento comparable al de <strong>OpenAI-o1</strong>. Este modelo es completamente de código abierto y cuenta con un informe técnico disponible bajo licencia <strong>MIT</strong>.</p><br></br><br></br>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleDropdown(this)"
+                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <h3 class="text-2xl font-semibold mb-4">DeepSeek-R1: Un modelo de razonamiento completamente abierto</h3>
             </div>
             <div class="hidden mt-2">
                 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">A new completely open reasoning model out of China, Deepseek-R1, is now available. The benchmarks show it at parity with the likes of o1 and Sonnet<br><br>In some informal tests on non-code problems, it is really good, not o1-pro level but surprisingly capable (and small &amp; fast!). Big <a href="https://t.co/w04baHEQQC">pic.twitter.com/w04baHEQQC</a></p>&mdash; Ethan Mollick (@emollick) <a href="https://twitter.com/emollick/status/1881357580372738552?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Un nuevo modelo de razonamiento completamente abierto, <strong>Deepseek-R1</strong>, ha sido lanzado en China. Las pruebas informales indican que es sorprendentemente capaz en problemas no relacionados con código, aunque no alcanza el nivel de <strong>o1</strong>.</p><br></br><div class="image-container">
+            </div><p class='mt-6'>DeepSeek-R1, un nuevo modelo de razonamiento de código abierto desarrollado en China, ha demostrado un rendimiento comparable con modelos como o1 y Sonnet. Este modelo puede ejecutarse en computadoras portátiles, representando un avance significativo en la accesibilidad de modelos de razonamiento.</p><br></br><div class="image-container">
                                     <img id="thumbnail" src="https://pbs.twimg.com/media/GhvrddyWoAAfp2w.jpg" alt="">
                                 </div><br></br><div class="image-container">
                                     <img id="thumbnail" src="https://pbs.twimg.com/media/GhvsFE9W8AAFs7x.jpg" alt="">
@@ -332,15 +441,14 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Optimización de Modelos de Razonamiento en IA</h3>
+                <h3 class="text-2xl font-semibold mb-4">Optimización de modelos de razonamiento</h3>
             </div>
             <div class="hidden mt-2">
                 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">There are no rigorous studies yet on how to best prompt reasoning models like o1.<br><br>They are not chat models, they are designed so that you give them a question and you get an answer. You want to give them context, etc. but we don’t know what the optimal way to do that is yet.</p>&mdash; Ethan Mollick (@emollick) <a href="https://twitter.com/emollick/status/1881047173011575133?ref_src=twsrc%5Etfw">January 19, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>No existen estudios rigurosos sobre cómo optimizar los modelos de razonamiento como o1. Estos modelos no son de chat, se les debe proporcionar un contexto específico para obtener respuestas, pero aún no se conoce la mejor manera de hacerlo.</p><br></br></section><section class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-3xl font-bold mb-4 underline text-center">Investigación y Metodologías en IA</h2><br></br>
+            </div><p class='mt-6'>Aún no existen estudios rigurosos sobre cómo optimizar los prompts para modelos de razonamiento como o1. Estos modelos requieren un contexto adecuado, pero no se conoce la forma óptima de proporcionarlo.</p><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -350,14 +458,34 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Detalles sobre el funcionamiento de o1 de OpenAI</h3>
+                <h3 class="text-2xl font-semibold mb-4">Nuevos Modelos de IA: De 1.5B a 70B Parámetros</h3>
+            </div>
+            <div class="hidden mt-2">
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">holy fuck, these gigachads dropped 6 distilled models right from 1.5B to 70B 🔥 <a href="https://t.co/DYq0cobPiq">pic.twitter.com/DYq0cobPiq</a></p>&mdash; Vaibhav (VB) Srivastav (@reach_vb) <a href="https://twitter.com/reach_vb/status/1881315419086291213?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div>
+            </div><p class='mt-6'>Un grupo de desarrolladores ha lanzado seis modelos de IA que van de 1.5B a 70B parámetros, lo que marca un avance significativo en la capacidad de procesamiento y generación de contenido. Estos modelos, denominados "gigachads", prometen mejorar la eficiencia en diversas aplicaciones de IA.</p><br></br><div class="image-container">
+                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhvGQGJWEAEa1fe.jpg" alt="">
+                                </div><br></br></section><section class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-3xl font-bold mb-4 underline text-center">Investigación y Desarrollo en IA</h2><br></br>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleDropdown(this)"
+                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <h3 class="text-2xl font-semibold mb-4">Análisis del paper de DeepSeek sobre o1 de OpenAI</h3>
             </div>
             <div class="hidden mt-2">
                 <blockquote class="twitter-tweet"><p lang="es" dir="ltr">Para los que llevamos meses especulando cómo funciona o1 de OpenAI, el paper de DeepSeek es iluminador, por detalles como que no usan PRMs ni MCTS.<br><br>En OpenAI ya habían dejado entrever que era un único sistema con RL, pero una cosa es leerlo y otra creerlo. <br><br>Parece ser cierto 🤯 <a href="https://t.co/hkaVGiST4F">https://t.co/hkaVGiST4F</a></p>&mdash; Carlos Santana (@DotCSV) <a href="https://twitter.com/DotCSV/status/1881365242896400653?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Un nuevo paper de DeepSeek proporciona información valiosa sobre el funcionamiento de o1 de OpenAI, revelando que no utilizan PRMs ni MCTS, y confirmando que se basa en un único sistema con RL.</p><br></br><div class="image-container">
+            </div><p class='mt-6'>El reciente paper de DeepSeek proporciona claridad sobre el funcionamiento del modelo o1 de OpenAI, revelando que no utiliza PRMs ni MCTS, lo que reafirma la singularidad de su enfoque basado en Reinforcement Learning (RL).</p><br></br><div class="image-container">
                                     <img id="thumbnail" src="https://pbs.twimg.com/media/Ghvrk9jWwAAuiyR.jpg" alt="">
                                 </div><br></br><br></br>
             <div class="flex items-center gap-4">
@@ -369,14 +497,33 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Nuevos métodos de computación en Google DeepMind</h3>
+                <h3 class="text-2xl font-semibold mb-4">Nuevas funciones en la app de ChatGPT para macOS</h3>
+            </div>
+            <div class="hidden mt-2">
+                <blockquote class="twitter-tweet"><p lang="es" dir="ltr">Menciones a Operator (&quot;agentes&quot;) en la app de mac de ChatGPT <a href="https://t.co/C5AbXivSFW">https://t.co/C5AbXivSFW</a></p>&mdash; Carlos Santana (@DotCSV) <a href="https://twitter.com/DotCSV/status/1881111338090709296?ref_src=twsrc%5Etfw">January 19, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div>
+            </div><p class='mt-6'>La aplicación de ChatGPT para macOS incluye opciones ocultas para definir atajos que permiten "Toggle Operator" y "Force Quit Operator", lo que sugiere una mayor personalización y control sobre la interfaz de usuario.</p><br></br><div class="image-container">
+                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhsLu6jWEAAQJNO.jpg" alt="">
+                                </div><br></br><br></br>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleDropdown(this)"
+                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <h3 class="text-2xl font-semibold mb-4">Nuevas Estrategias de Computación en IA</h3>
             </div>
             <div class="hidden mt-2">
                 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">New inference-time computing method from <a href="https://twitter.com/GoogleDeepMind?ref_src=twsrc%5Etfw">@GoogleDeepMind</a>! Evolutionary search strategy focuses on improving planning by generating multiple solutions in parallel, evaluating and recombining them.<br><br>Implementation<br>0️⃣ planning problems and a programmatic way to evaluate the quality… <a href="https://t.co/17ecEsoZE5">pic.twitter.com/17ecEsoZE5</a></p>&mdash; Philipp Schmid (@_philschmid) <a href="https://twitter.com/_philschmid/status/1881258625999786422?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Google DeepMind ha introducido un nuevo método de computación en tiempo de inferencia que utiliza una estrategia de búsqueda evolutiva para mejorar la planificación generando múltiples soluciones en paralelo.</p><br></br><div class="image-container">
+            </div><p class='mt-6'>Google DeepMind ha presentado un nuevo método de computación en tiempo de inferencia que utiliza una estrategia de búsqueda evolutiva para mejorar la planificación mediante la generación y evaluación de múltiples soluciones en paralelo. <a href="https://x.com/_philschmid/status/1881258625999786422">Leer más</a></p><br></br><div class="image-container">
                                     <img id="thumbnail" src="https://pbs.twimg.com/media/GhuStDtXgAA3_14.jpg" alt="">
                                 </div><br></br><br></br>
             <div class="flex items-center gap-4">
@@ -388,15 +535,32 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Innovaciones en InternVL 2.5</h3>
+                <h3 class="text-2xl font-semibold mb-4">Generación de datos sintéticos para RAG</h3>
             </div>
             <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">One of the secrets of InternVL 2.5? They added FineVideo in their data mixture 🤩 <a href="https://t.co/FXo4Bk6HnU">pic.twitter.com/FXo4Bk6HnU</a></p>&mdash; Miquel Farré (@micuelll) <a href="https://twitter.com/micuelll/status/1881251735945265166?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">💫 Generate RAG data with the Synthetic Data Generator to improve your RAG system!<br><br>1️⃣ Generate from your documents, dataset, or dataset description.<br>2️⃣ Configure it.<br>3️⃣ Generate the synthetic dataset.<br>4️⃣ Fine-tune the retrieval and reranking models.<br>5️⃣ Build a RAG pipeline.</p>&mdash; Sara Han (@sdiazlor) <a href="https://twitter.com/sdiazlor/status/1881381764213670203?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>El modelo InternVL 2.5 ha incorporado FineVideo en su mezcla de datos, lo que ha generado interés en la comunidad de investigación sobre sus capacidades y mejoras en el rendimiento.</p><br></br><div class="image-container">
-                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhuMAUwXMAAILpS.jpg" alt="">
+            </div><p class='mt-6'>Se ha presentado un generador de datos sintéticos que permite mejorar los sistemas de RAG (Retrieval-Augmented Generation) mediante la generación de datos a partir de documentos y conjuntos de datos existentes.</p><br></br><br></br>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleDropdown(this)"
+                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <h3 class="text-2xl font-semibold mb-4">Nuevas estrategias en arquitecturas Agentic RAG</h3>
+            </div>
+            <div class="hidden mt-2">
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Agentic RAG Overview<br><br>This is a great intro to LLM agents and Agentic RAG.<br><br>It provides a comprehensive exploration of Agentic RAG architectures, applications, and implementation strategies. <a href="https://t.co/rPIXwp3hiL">pic.twitter.com/rPIXwp3hiL</a></p>&mdash; elvis (@omarsar0) <a href="https://twitter.com/omarsar0/status/1881360794019156362?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div>
+            </div><p class='mt-6'>Se ha lanzado un curso que explora a fondo las arquitecturas de agentes LLM y RAG Agentic, proporcionando estrategias de implementación y aplicaciones que podrían transformar el campo.</p><br></br><div class="image-container">
+                                    <img id="thumbnail" src="https://pbs.twimg.com/media/Ghvvq8paoAE67YF.jpg" alt="">
                                 </div><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
@@ -407,17 +571,14 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Desafíos en la evaluación de modelos de IA</h3>
+                <h3 class="text-2xl font-semibold mb-4">Innovaciones en procesos de computación programables</h3>
             </div>
             <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">benchmark idea: what is there was a way to automatically scrape+ index problems by level of complexity * how rare the required solution steps are to find on the internet? this way you also don&#39;t have to painstakingly make harder and harder evals <a href="https://t.co/gTXBxIfmNm">https://t.co/gTXBxIfmNm</a></p>&mdash; Minh Nhat Nguyen (@menhguin) <a href="https://twitter.com/menhguin/status/1881353800847622422?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Random speculation: if model scaling allows more params to capture richer more diverse representations within a large dataset, then a bottleneck to pure scaling is how well we can test the countless tail-end capabilities Dario Amodei talkes about.</p>&mdash; Minh Nhat Nguyen (@menhguin) <a href="https://twitter.com/menhguin/status/1881334840018309343?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">there&#39;s almost certainly a way to build programmable computing processes inside the weights of an LLM. imma figure out what it is.</p>&mdash; Minh Nhat Nguyen (@menhguin) <a href="https://twitter.com/menhguin/status/1881350685570318707?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Se plantea la idea de crear un sistema que scrapee e indexe problemas de IA según su nivel de complejidad, facilitando la evaluación de modelos. Se discuten las limitaciones del escalado de modelos y la necesidad de evaluar capacidades menos comunes en los modelos actuales.</p><br></br><br></br>
+            </div><p class='mt-6'>Se especula sobre la posibilidad de construir procesos de computación programables dentro de los pesos de un LLM, lo que podría abrir nuevas vías para el desarrollo de IA más avanzada.</p><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -427,14 +588,19 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Evaluaciones de DeepSeek-R1 vs OpenAI</h3>
+                <h3 class="text-2xl font-semibold mb-4">Problemas complejos sin soluciones disponibles</h3>
             </div>
             <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Evaluations from the <a href="https://twitter.com/deepseek_ai?ref_src=twsrc%5Etfw">@deepseek_ai</a> paper 💥<br><br>DeepSeek-R1-Zero vs. OpenAI-o1-0912:<br><br>&gt; R1-Zero achieves 71.0% pass@1 on AIME 2024, comparable to OpenAI-o1-0912 (74.4%)<br>&gt; With majority voting, DeepSeek-R1-Zero reaches 86.7%, surpassing OpenAI-o1-0912<br><br>DeepSeek-R1 vs. OpenAI-o1-1217:… <a href="https://t.co/HLE4DND0Mi">https://t.co/HLE4DND0Mi</a></p>&mdash; Vaibhav (VB) Srivastav (@reach_vb) <a href="https://twitter.com/reach_vb/status/1881340583358161148?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">i imagine there are many hard problems w zero of their major solution steps on the internet</p>&mdash; Minh Nhat Nguyen (@menhguin) <a href="https://twitter.com/menhguin/status/1881353803779489952?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div><blockquote class="twitter-tweet"><p lang="zxx" dir="ltr"><a href="https://t.co/WEIWmDEQ52">https://t.co/WEIWmDEQ52</a> <a href="https://t.co/7pVsXNsObM">pic.twitter.com/7pVsXNsObM</a></p>&mdash; Minh Nhat Nguyen (@menhguin) <a href="https://twitter.com/menhguin/status/1881352171511529782?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Las evaluaciones del modelo DeepSeek-R1-Zero muestran un 71% de éxito en la prueba AIME 2024, comparado con el 74.4% de OpenAI-o1-0912. Con votación mayoritaria, DeepSeek-R1-Zero alcanza un 86.7%, superando a su competidor.</p><br></br><br></br>
+            </div><p class='mt-6'>Se discute la existencia de problemas difíciles en IA que carecen de pasos de solución en línea, sugiriendo un área de oportunidad para la investigación y desarrollo.</p><br></br><div class="image-container">
+                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhvnxFIaIAAreU2.png" alt="">
+                                </div><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -444,14 +610,16 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Revisión de Modelos de Lenguaje Abiertos</h3>
+                <h3 class="text-2xl font-semibold mb-4">Simplificación de la Optimización de Preferencias Directas (DPO)</h3>
             </div>
             <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">read the report here:<a href="https://t.co/cJ2qu3sX6r">https://t.co/cJ2qu3sX6r</a></p>&mdash; Vaibhav (VB) Srivastav (@reach_vb) <a href="https://twitter.com/reach_vb/status/1881318540688666834?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Tried my hand at simplifying the derivations of Direct Preference Optimization.<br><br>I cover how one can reformulate RLHF into DPO. The idea of implicit reward modeling is chef&#39;s kiss. <a href="https://t.co/XNq7dccOPs">pic.twitter.com/XNq7dccOPs</a></p>&mdash; Aritra Roy Gosthipaty (@ariG23498) <a href="https://twitter.com/ariG23498/status/1881064197389488432?ref_src=twsrc%5Etfw">January 19, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Un nuevo informe detalla el rendimiento de un LLM de código abierto que ha demostrado ser altamente competitivo. Se invita a los interesados a revisar el documento completo.</p><br></br><br></br>
+            </div><p class='mt-6'>Un nuevo artículo analiza cómo reformular el Aprendizaje por Refuerzo con Retroalimentación Humana (RLHF) en DPO, destacando el modelo de recompensa implícita como un avance significativo. El autor, <a href="https://x.com/ariG23498" class="text-blue-500 underline" target="_blank" rel="noopener noreferrer">@ariG23498</a>, presenta derivaciones simplificadas que pueden facilitar la comprensión de este enfoque.</p><br></br><div class="image-container">
+                                    <img id="thumbnail" src="https://pbs.twimg.com/media/Ghrhp1takAABHso.jpg" alt="">
+                                </div><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -461,17 +629,34 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">DeepSeek R1 supera a OpenAI en benchmarks de código</h3>
+                <h3 class="text-2xl font-semibold mb-4">Técnicas de prompting en IA</h3>
             </div>
             <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Really like seeing R1 beating newsonnet in almost all of the code benchmarks, while being really close to 01.<br><br>Also super nice to see the Aider benchmark being included more and more in model releases. Great work <a href="https://twitter.com/paulgauthier?ref_src=twsrc%5Etfw">@paulgauthier</a> <a href="https://t.co/oZOmjarKaH">pic.twitter.com/oZOmjarKaH</a></p>&mdash; Caleb (@calebfahlgren) <a href="https://twitter.com/calebfahlgren/status/1881361559659958415?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">I see formulas and prompting techniques being passed around virally, just like we saw in the early days of ChatGPT. Are these the best approaches? Are they even good? We don’t know yet.</p>&mdash; Ethan Mollick (@emollick) <a href="https://twitter.com/emollick/status/1881047575480172957?ref_src=twsrc%5Etfw">January 19, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>DeepSeek R1 ha demostrado un rendimiento superior al de Newsonnet en casi todos los benchmarks de código, acercándose notablemente al modelo 01 de OpenAI. Esto resalta el avance en la capacidad de procesamiento de modelos de inteligencia artificial.</p><br></br><div class="image-container">
-                                    <img id="thumbnail" src="https://pbs.twimg.com/media/Ghvv9VlWAAAthdt.jpg" alt="">
+            </div><p class='mt-6'>Se están compartiendo fórmulas y técnicas de prompting de manera viral, similar a los inicios de ChatGPT, pero no se sabe si son las mejores prácticas o si son efectivas.</p><br></br><br></br>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleDropdown(this)"
+                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <h3 class="text-2xl font-semibold mb-4">Generación de datos sintéticos para LLMs</h3>
+            </div>
+            <div class="hidden mt-2">
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Synthetic data for fine-tuning and evaluating LLMs - private and open source! <br><br>Runs on consumer hardware.<br>Only 15 lines of code<br>Powered by Qwen2.5 32B, MLX and distilabel.<br><br>code: <a href="https://t.co/Y58Vykbfvg">https://t.co/Y58Vykbfvg</a>  <br>data: <a href="https://t.co/bJSkLARCbs">https://t.co/bJSkLARCbs</a> <br>library: <a href="https://t.co/R9IwmIGeuy">https://t.co/R9IwmIGeuy</a> <a href="https://t.co/eZ6oVRcPvg">pic.twitter.com/eZ6oVRcPvg</a></p>&mdash; David Berenstein (@davidberenstei) <a href="https://twitter.com/davidberenstei/status/1881260543291367563?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div>
+            </div><p class='mt-6'>Se está utilizando un generador de datos sintéticos para la sintonización y evaluación de LLMs, que es accesible en hardware de consumo, con solo 15 líneas de código.</p><br></br><div class="image-container">
+                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhuUflaXoAA3-CF.jpg" alt="">
                                 </div><br></br></section><section class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-3xl font-bold mb-4 underline text-center">Educación y Comunidad en IA</h2><br></br>
+                <h2 class="text-3xl font-bold mb-4 underline text-center">Generación de Contenido</h2><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -481,14 +666,51 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Curso gratuito de AI Agents en Hugging Face</h3>
+                <h3 class="text-2xl font-semibold mb-4">Memecoin de Trump y su Perfil Generado por IA</h3>
+            </div>
+            <div class="hidden mt-2">
+                <blockquote class="twitter-tweet"><p lang="es" dir="ltr">Que esto es real! 😂 Que la gráfica de la memecoin de Trump ha generado su perfil! Que apaguen la simulación<a href="https://t.co/KWkzbHBLAw">https://t.co/KWkzbHBLAw</a></p>&mdash; Carlos Santana (@DotCSV) <a href="https://twitter.com/DotCSV/status/1881110818835878023?ref_src=twsrc%5Etfw">January 19, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div>
+            </div><p class='mt-6'>Una gráfica que muestra la conexión entre una memecoin de Trump y su perfil ha generado comentarios sobre la posibilidad de vivir en una simulación. Esto resalta el impacto de la IA en la creación de contenido visual. <a href="https://x.com/dotcsv/status/1881110818835878023">Leer más</a></p><br></br><div class="image-container">
+                                    <img id="thumbnail" src="https://pbs.twimg.com/media/Ghr1g4_WYAEC9GZ.jpg" alt="">
+                                </div><br></br><br></br>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleDropdown(this)"
+                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <h3 class="text-2xl font-semibold mb-4">La brecha entre la creación de videos y los generadores de IA</h3>
+            </div>
+            <div class="hidden mt-2">
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">There is still a very large gap between the control that film gives to creators and the strangeness of using AI video generators which involves more randomness. The gap may be closed eventually (soon?)  but for now you c an create some interesting, if incoherent, videos easily.</p>&mdash; Ethan Mollick (@emollick) <a href="https://twitter.com/emollick/status/1881231177773928666?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div>
+            </div><p class='mt-6'>Aún existe una gran diferencia entre el control que el cine otorga a los creadores y la aleatoriedad de los generadores de video por IA. Aunque se prevé que esta brecha se cierre pronto, actualmente es posible crear videos interesantes, aunque incoherentes, con facilidad.</p><br></br></section><section class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-3xl font-bold mb-4 underline text-center">Educación y Formación en IA</h2><br></br>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleDropdown(this)"
+                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <h3 class="text-2xl font-semibold mb-4">Curso Gratuito de Agentes de IA en Hugging Face</h3>
             </div>
             <div class="hidden mt-2">
                 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Hugging Face is pre-registering for a free AI Agents course, and over 35,000 people have already signed up in a few days. <a href="https://t.co/srNXZFcoXt">pic.twitter.com/srNXZFcoXt</a></p>&mdash; ℏεsam (@Hesamation) <a href="https://twitter.com/Hesamation/status/1881292274178691271?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Hugging Face está preinscribiendo para un curso gratuito sobre AI Agents, con más de 35,000 inscripciones en pocos días, lo que demuestra un creciente interés en la educación sobre IA.</p><br></br><br></br>
+            </div><p class='mt-6'>Hugging Face está preinscribiendo a usuarios para un curso gratuito sobre Agentes de IA, con más de 35,000 inscripciones en pocos días, lo que refleja el creciente interés en la educación sobre IA. <a href="https://x.com/ClementDelangue/status/1881363442155901125">Leer más</a></p><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -508,7 +730,7 @@
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Más de 35,000 personas se han registrado para el curso gratuito de AI Agents ofrecido por Hugging Face, que se celebrará en los próximos días. Este curso promete ser una gran oportunidad para aprender sobre el desarrollo de agentes de inteligencia artificial.</p><br></br><br></br>
+            </div><p class='mt-6'>Más de 35,000 personas se han registrado para el curso gratuito de AI Agents ofrecido por Hugging Face, que se celebrará en los próximos días. Este evento ha generado un gran interés en la comunidad de IA.</p><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -518,14 +740,14 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Crecimiento en la Educación sobre IA</h3>
+                <h3 class="text-2xl font-semibold mb-4">Curso de Agentes de IA</h3>
             </div>
             <div class="hidden mt-2">
                 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Wait! Over 35 *thousands* people registered for the AI Agent course<br><br>in a few days...<br><br>time to find the biggest conference center in the world and gather everyone for a giga-conference on agents?<br><br>you can still join the online course here <a href="https://t.co/sdjVw9tcIu">https://t.co/sdjVw9tcIu</a></p>&mdash; Thomas Wolf (@Thom_Wolf) <a href="https://twitter.com/Thom_Wolf/status/1881268455196054001?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Más de <b>35,000 personas</b> se han registrado para el curso de <i>AI Agent</i>, lo que refleja un creciente interés en la educación sobre inteligencia artificial. Este evento es parte de una tendencia hacia conferencias masivas en el sector.</p><br></br><br></br>
+            </div><p class='mt-6'>Más de <strong>35,000 personas</strong> se han registrado para el curso de <strong>Agentes de IA</strong>, lo que demuestra un creciente interés en el aprendizaje sobre inteligencia artificial y sus aplicaciones.</p><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -535,17 +757,18 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Interacción en la Comunidad de IA</h3>
+                <h3 class="text-2xl font-semibold mb-4">Colab Gratuito para R1 Distill Qwen 1.5B</h3>
             </div>
             <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Discussions under Hugging Face articles is a very good way to engage with the post authors.<a href="https://t.co/jq9Afnkrfo">https://t.co/jq9Afnkrfo</a> <a href="https://t.co/844j1fZFBr">pic.twitter.com/844j1fZFBr</a></p>&mdash; Aritra Roy Gosthipaty (@ariG23498) <a href="https://twitter.com/ariG23498/status/1881237555993252103?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Try out R1 Distill Qwen 1.5B in a FREE Google Colab! 🔥<br><br>The vibes are looking gooood! <a href="https://t.co/IQApPfEjzG">https://t.co/IQApPfEjzG</a> <a href="https://t.co/dXvYLoOFuk">pic.twitter.com/dXvYLoOFuk</a></p>&mdash; Vaibhav (VB) Srivastav (@reach_vb) <a href="https://twitter.com/reach_vb/status/1881377609445167380?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Las discusiones en los artículos de <i>Hugging Face</i> son una excelente manera de interactuar con los autores, promoviendo un diálogo constructivo en la comunidad de IA.</p><br></br><div class="image-container">
-                                    <img id="thumbnail" src="https://pbs.twimg.com/media/Ght_YOVaYAAM4an.jpg" alt="">
-                                </div><br></br></section><section class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-3xl font-bold mb-4 underline text-center">Rendimiento y Optimización de Modelos</h2><br></br>
+            </div><p class='mt-6'>Se ha lanzado una instancia gratuita en <strong>Google Colab</strong> para probar el modelo <strong>R1 Distill Qwen 1.5B</strong>. Los usuarios están mostrando un gran interés en experimentar con este modelo.</p><br></br><video controls class="w-full rounded-lg mb-4 mt-6">
+                                    <source src="https://video.twimg.com/ext_tw_video/1881377422135676928/pu/vid/avc1/1670x1080/wUafm6PII4xXizvR.mp4?tag=14" type="video/mp4">
+                                    Tu navegador no soporta la reproducción de este video.
+                                </video><br></br></section><section class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-3xl font-bold mb-4 underline text-center">Interacción y Percepción de la IA</h2><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -555,19 +778,14 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Modelos de DeepSeek y rendimiento en benchmarks</h3>
+                <h3 class="text-2xl font-semibold mb-4">La Realidad y los Modelos de Lenguaje</h3>
             </div>
             <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">A 1.5B model achieving 28% on AIME, 33.8% on GPQAm 16.9% on LiveCodeBench and 954 on CodeForces.🤯<a href="https://t.co/PlwIxHM5bb">https://t.co/PlwIxHM5bb</a></p>&mdash; Philipp Schmid (@_philschmid) <a href="https://twitter.com/_philschmid/status/1881320402640928837?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">The new distilled <a href="https://twitter.com/deepseek_ai?ref_src=twsrc%5Etfw">@deepseek_ai</a> models are fine-tuned versions of <a href="https://twitter.com/Alibaba_Qwen?ref_src=twsrc%5Etfw">@Alibaba_Qwen</a> or <a href="https://twitter.com/AIatMeta?ref_src=twsrc%5Etfw">@AIatMeta</a> Llama 3 using  800k samples curated with DeepSeek-R1. (no RL stage) <a href="https://t.co/2ytEgzZIvv">pic.twitter.com/2ytEgzZIvv</a></p>&mdash; Philipp Schmid (@_philschmid) <a href="https://twitter.com/_philschmid/status/1881319751680733238?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+                <blockquote class="twitter-tweet"><p lang="es" dir="ltr">Es como si el guion de nuestra realidad se estuviera escribiendo con un LLM con la temperatura muy alta.</p>&mdash; Carlos Santana (@DotCSV) <a href="https://twitter.com/DotCSV/status/1881103283710026068?ref_src=twsrc%5Etfw">January 19, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Un modelo de 1.5B ha logrado un 28% en AIME, 33.8% en GPQAm y 954 en CodeForces. Además, se presentan nuevos modelos de DeepSeek, versiones ajustadas de Qwen y Llama 3 utilizando 800k muestras.</p><br></br><div class="image-container">
-                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhvKRBgXQAAiAHh.png" alt="">
-                                </div><br></br><br></br>
+            </div><p class='mt-6'>Un usuario comenta que parece que el guion de nuestra realidad está siendo escrito por un LLM con alta temperatura. Esto sugiere una percepción de la realidad influenciada por modelos de lenguaje altamente creativos. <a href="https://x.com/dotcsv/status/1881103283710026068">Leer más</a></p><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -577,14 +795,15 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Resultados de rendimiento de modelos de 1.5B</h3>
+                <h3 class="text-2xl font-semibold mb-4">La gramática en los prompts de IA</h3>
             </div>
             <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">A 1.5B model achieving 28% on AIME, 33.8% on GPQAm 16.9% on LiveCodeBench and 954 on CodeForces.🤯<a href="https://t.co/PlwIxHM5bb">https://t.co/PlwIxHM5bb</a></p>&mdash; Philipp Schmid (@_philschmid) <a href="https://twitter.com/_philschmid/status/1881320402640928837?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">to be pedantic, you could say it&#39;s natural language, but it&#39;s super hard to this in a systematic, precise and replicable way atm</p>&mdash; Minh Nhat Nguyen (@menhguin) <a href="https://twitter.com/menhguin/status/1881351091176210754?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Un modelo de 1.5B ha alcanzado un 28% en AIME, 33.8% en GPQAm y 16.9% en LiveCodeBench, mostrando resultados competitivos en benchmarks establecidos.</p><br></br><br></br>
+            </div><p class='mt-6'>Un análisis sobre la calidad gramatical de los prompts utilizados en IA, destacando que la precisión sistemática y replicable sigue siendo un reto.</p><br></br></section><section class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-3xl font-bold mb-4 underline text-center">Ética y Regulación en IA</h2><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -594,14 +813,14 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Evolución del Aprendizaje por Refuerzo en IA</h3>
+                <h3 class="text-2xl font-semibold mb-4">Desafíos en la regulación de la IA</h3>
             </div>
             <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Tried my hand at simplifying the derivations of Direct Preference Optimization.<br><br>I cover how one can reformulate RLHF into DPO. The idea of implicit reward modeling is chef&#39;s kiss. <a href="https://t.co/XNq7dccOPs">pic.twitter.com/XNq7dccOPs</a></p>&mdash; Aritra Roy Gosthipaty (@ariG23498) <a href="https://twitter.com/ariG23498/status/1881064197389488432?ref_src=twsrc%5Etfw">January 19, 2025</a></blockquote>
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">The release of DeepSeek-R1 demonstrates that, for better or worse, any attempt to restrict AI by national governments is unlikely to work. You can get an open frontier model on a USB stick, and the methods outlined by DeepSeek suggest pathways forward for other open models, too.</p>&mdash; Ethan Mollick (@emollick) <a href="https://twitter.com/emollick/status/1881392364817940862?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>La simplificación de la optimización de preferencias directas (<i>Direct Preference Optimization</i>) se está explorando como una alternativa a la <strong>Reinforcement Learning from Human Feedback</strong> (<i>RLHF</i>). Este enfoque promete mejorar la alineación de los modelos de IA.</p><br></br><br></br>
+            </div><p class='mt-6'>La reciente liberación de DeepSeek-R1 pone de manifiesto que las restricciones gubernamentales sobre la IA son difíciles de implementar, ya que los modelos abiertos pueden ser fácilmente distribuidos en dispositivos portátiles. Esto sugiere que la regulación puede no ser efectiva en el futuro cercano.</p><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -611,120 +830,14 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Técnicas de Prompting en IA</h3>
-            </div>
-            <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">I see formulas and prompting techniques being passed around virally, just like we saw in the early days of ChatGPT. Are these the best approaches? Are they even good? We don’t know yet.</p>&mdash; Ethan Mollick (@emollick) <a href="https://twitter.com/emollick/status/1881047575480172957?ref_src=twsrc%5Etfw">January 19, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div>
-            </div><p class='mt-6'>Se están difundiendo fórmulas y técnicas de prompting, similar a lo que ocurrió en los inicios de ChatGPT. Sin embargo, no se ha determinado si estas son efectivas o adecuadas.</p><br></br></section><section class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-3xl font-bold mb-4 underline text-center">Innovaciones y Nuevos Lanzamientos en IA</h2><br></br>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleDropdown(this)"
-                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                </button>
-                <h3 class="text-2xl font-semibold mb-4">Nuevos métodos de computación en Google DeepMind</h3>
-            </div>
-            <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">New inference-time computing method from <a href="https://twitter.com/GoogleDeepMind?ref_src=twsrc%5Etfw">@GoogleDeepMind</a>! Evolutionary search strategy focuses on improving planning by generating multiple solutions in parallel, evaluating and recombining them.<br><br>Implementation<br>0️⃣ planning problems and a programmatic way to evaluate the quality… <a href="https://t.co/17ecEsoZE5">pic.twitter.com/17ecEsoZE5</a></p>&mdash; Philipp Schmid (@_philschmid) <a href="https://twitter.com/_philschmid/status/1881258625999786422?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div>
-            </div><p class='mt-6'>Google DeepMind ha introducido un nuevo método de computación en tiempo de inferencia que utiliza una estrategia de búsqueda evolutiva para mejorar la planificación generando múltiples soluciones en paralelo.</p><br></br><div class="image-container">
-                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhuStDtXgAA3_14.jpg" alt="">
-                                </div><br></br><br></br>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleDropdown(this)"
-                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                </button>
-                <h3 class="text-2xl font-semibold mb-4">Lanzamiento de DeepSeek R1</h3>
-            </div>
-            <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">WAGMI, DeepSeek about to drop R1 🔥<br><br>(empty repo for now)<a href="https://t.co/DgAQMWOA07">https://t.co/DgAQMWOA07</a></p>&mdash; Vaibhav (VB) Srivastav (@reach_vb) <a href="https://twitter.com/reach_vb/status/1881228395570446505?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div>
-            </div><p class='mt-6'>DeepSeek está a punto de lanzar su modelo R1, aunque actualmente solo se ha compartido un repositorio vacío. Esto genera expectativas sobre las capacidades que ofrecerá.</p><br></br><br></br>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleDropdown(this)"
-                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                </button>
-                <h3 class="text-2xl font-semibold mb-4">Lanzamiento de la serie DeepSeek R1</h3>
-            </div>
-            <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Deepseek drops<br><br>- Deepseek-R1<br>- Deepseek-R1-0<br>- R1-Distilled Llama and Qwen models<br><br>This is all after releasing the wonderful Deepseek-V3 less than a month ago. <br><br>Somebody woke up the whale 🐳 <a href="https://t.co/rV3FUN2FCi">https://t.co/rV3FUN2FCi</a></p>&mdash; Caleb (@calebfahlgren) <a href="https://twitter.com/calebfahlgren/status/1881321677277024550?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div>
-            </div><p class='mt-6'>DeepSeek ha lanzado la serie R1, que incluye modelos como Deepseek-R1 y R1-Distilled, ampliando su oferta tras la reciente liberación de Deepseek-V3. Estos modelos están disponibles para la comunidad y son de licencia MIT.</p><br></br><br></br>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleDropdown(this)"
-                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                </button>
-                <h3 class="text-2xl font-semibold mb-4">DeepSeek R1 ahora en Hugging Face</h3>
-            </div>
-            <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">DeepSeek r1 series is available on <a href="https://twitter.com/huggingface?ref_src=twsrc%5Etfw">@huggingface</a> now!<br><br>Surprises:<br>- It&#39;s not just a single model, it&#39;s a model family<br>- Both big / small reasoning models available giving you more choices<br>- r1 will be in MIT license, allowing for model distillation<br>- Released full training… <a href="https://t.co/2yj58tjTJg">pic.twitter.com/2yj58tjTJg</a></p>&mdash; Tiezhen WANG (@Xianbao_QIAN) <a href="https://twitter.com/Xianbao_QIAN/status/1881316371252015280?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div>
-            </div><p class='mt-6'>La serie R1 de DeepSeek está disponible en Hugging Face, destacando que no se trata de un solo modelo, sino de una familia de modelos. Esto promete ampliar las opciones para los desarrolladores en el uso de IA.</p><br></br></section><section class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-3xl font-bold mb-4 underline text-center">Impacto y Ética de la IA</h2><br></br>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleDropdown(this)"
-                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                </button>
-                <h3 class="text-2xl font-semibold mb-4">Reflexiones sobre el Futuro de la IA</h3>
+                <h3 class="text-2xl font-semibold mb-4">Visión del futuro en la IA</h3>
             </div>
             <div class="hidden mt-2">
                 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">This point is important. I don’t see clear visions from those seeking very capable AI about what the future world they want looks like<br><br>The singularity (a point at which future predictions become impossible) is a metaphor, not an excuse. What world are you building, specifically? <a href="https://t.co/VY0rn7xiYF">https://t.co/VY0rn7xiYF</a></p>&mdash; Ethan Mollick (@emollick) <a href="https://twitter.com/emollick/status/1881168956779839626?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Se plantea la falta de visiones claras sobre el futuro que se desea construir con la IA. Se enfatiza la necesidad de definir objetivos específicos en el desarrollo de tecnologías avanzadas, en lugar de depender de un optimismo tecnológico poco fundamentado.</p><br></br><br></br>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleDropdown(this)"
-                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                </button>
-                <h3 class="text-2xl font-semibold mb-4">Impacto de la IA en la Productividad</h3>
-            </div>
-            <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Technologies do not revolutionize productivity immediately, at least historically<br><br>You could potentially argue that AI is different for a variety of reasons, but it would be smart to acknowledge the default expectation is that it will be years until the real impact of AI on work. <a href="https://t.co/QKVr5lbPzd">https://t.co/QKVr5lbPzd</a></p>&mdash; Ethan Mollick (@emollick) <a href="https://twitter.com/emollick/status/1881070444524261682?ref_src=twsrc%5Etfw">January 19, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div>
-            </div><p class='mt-6'>Se discuten las expectativas sobre el impacto de la IA en la productividad laboral, sugiriendo que, históricamente, las tecnologías no revolucionan la productividad de inmediato, y que podría tomar años ver un impacto real, similar a lo que ocurrió con la máquina de vapor.</p><br></br><br></br>
+            </div><p class='mt-6'>No se perciben visiones claras de quienes buscan una IA muy capaz sobre el futuro que desean construir. La singularidad es una metáfora, no una excusa; es crucial definir el mundo que se quiere crear con la tecnología.</p><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -741,8 +854,8 @@
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>A medida que los <strong>agentes de IA</strong> se vuelven más autónomos, surge la necesidad de gestionar los riesgos asociados a su operación en el mundo real. Se plantea la cuestión de cómo garantizar que estos agentes actúen de manera segura y ética en entornos no controlados.</p><br></br></section><section class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-3xl font-bold mb-4 underline text-center">Creatividad y Aplicaciones de IA</h2><br></br>
+            </div><p class='mt-6'>A medida que los agentes de IA se vuelven más autónomos, surge la necesidad de gestionar los riesgos asociados con su operación en el mundo real. Se plantea la pregunta de cómo garantizar que estos agentes operen de manera segura y ética, lo que es crucial para su implementación.</p><br></br></section><section class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-3xl font-bold mb-4 underline text-center">Impacto y Competencia en IA</h2><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -752,16 +865,14 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Memecoin de Trump y su perfil generado</h3>
+                <h3 class="text-2xl font-semibold mb-4">Expectativas Elevadas para el Futuro de la IA con DeepSeek</h3>
             </div>
             <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="es" dir="ltr">Que esto es real! 😂 Que la gráfica de la memecoin de Trump ha generado su perfil! Que apaguen la simulación<a href="https://t.co/KWkzbHBLAw">https://t.co/KWkzbHBLAw</a></p>&mdash; Carlos Santana (@DotCSV) <a href="https://twitter.com/DotCSV/status/1881110818835878023?ref_src=twsrc%5Etfw">January 19, 2025</a></blockquote>
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">WAGMI, DeepSeek about to drop R1 🔥<br><br>(empty repo for now)<a href="https://t.co/DgAQMWOA07">https://t.co/DgAQMWOA07</a></p>&mdash; Vaibhav (VB) Srivastav (@reach_vb) <a href="https://twitter.com/reach_vb/status/1881228395570446505?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Un tweet viral menciona que la gráfica de una memecoin de Trump ha generado su perfil, sugiriendo una conexión entre el arte digital y la inteligencia artificial en la creación de perfiles.</p><br></br><div class="image-container">
-                                    <img id="thumbnail" src="https://pbs.twimg.com/media/Ghr1g4_WYAEC9GZ.jpg" alt="">
-                                </div><br></br><br></br>
+            </div><p class='mt-6'>La comunidad está expectante ante el próximo lanzamiento de <b>DeepSeek R1</b>, que promete ser un avance significativo en la inteligencia artificial. Aunque el repositorio está vacío por ahora, se anticipa que contendrá innovaciones notables en el campo de los modelos de lenguaje.</p><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -771,75 +882,14 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Generación de Videos con IA: Nuevas Posibilidades</h3>
+                <h3 class="text-2xl font-semibold mb-4">Impacto de la IA en la productividad</h3>
             </div>
             <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">How does veo 2 pull off three nervous women holding knives on the back of a giant caterpillar running through a deserted city looking determined as a tank rolls towards them?<br><br>If I imagine a thing, I can generate something close. It isn&#39;t a replacement for film, it is a new thing <a href="https://t.co/AslrMQX1st">pic.twitter.com/AslrMQX1st</a></p>&mdash; Ethan Mollick (@emollick) <a href="https://twitter.com/emollick/status/1881229882598011029?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">There is still a very large gap between the control that film gives to creators and the strangeness of using AI video generators which involves more randomness. The gap may be closed eventually (soon?)  but for now you c an create some interesting, if incoherent, videos easily.</p>&mdash; Ethan Mollick (@emollick) <a href="https://twitter.com/emollick/status/1881231177773928666?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Technologies do not revolutionize productivity immediately, at least historically<br><br>You could potentially argue that AI is different for a variety of reasons, but it would be smart to acknowledge the default expectation is that it will be years until the real impact of AI on work. <a href="https://t.co/QKVr5lbPzd">https://t.co/QKVr5lbPzd</a></p>&mdash; Ethan Mollick (@emollick) <a href="https://twitter.com/emollick/status/1881070444524261682?ref_src=twsrc%5Etfw">January 19, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Se discute el uso de generadores de video basados en IA, que permiten crear contenido visual interesante, aunque con un grado de aleatoriedad que puede resultar en incoherencias. La brecha entre el control en la creación de películas y la generación de videos por IA aún es significativa.</p><br></br><video controls class="w-full rounded-lg mb-4 mt-6">
-                                    <source src="https://video.twimg.com/ext_tw_video/1881229740138184704/pu/vid/avc1/1280x720/WPJyRvDlj3stmzBv.mp4?tag=12" type="video/mp4">
-                                    Tu navegador no soporta la reproducción de este video.
-                                </video><br></br><br></br>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleDropdown(this)"
-                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                </button>
-                <h3 class="text-2xl font-semibold mb-4">Automatización de Flujos de Trabajo con IA</h3>
-            </div>
-            <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">🤔 What If You Could Automate Complex Workflows Using Plain English?<br><br>Imagine being able to delegate tasks like market research, press reviews, or AI article analysis—all by simply describing what you need in plain English. <br><br>Sounds like magic, right? ....<br><br>Well, it’s now a…</p>&mdash; Raphael Mansuy 🍵 (@raphaelmansuy) <a href="https://twitter.com/raphaelmansuy/status/1881248558252433792?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div>
-            </div><p class='mt-6'>La posibilidad de <strong>automatizar flujos de trabajo complejos</strong> utilizando lenguaje natural está transformando la forma en que se delegan tareas como la investigación de mercado y el análisis de artículos. Esta innovación promete simplificar procesos que antes requerían tiempo y esfuerzo significativo.</p><br></br></section><section class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-3xl font-bold mb-4 underline text-center">Competencia y Mercado en IA</h2><br></br>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleDropdown(this)"
-                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                </button>
-                <h3 class="text-2xl font-semibold mb-4">Impacto de los nuevos modelos en el mercado de IA</h3>
-            </div>
-            <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="es" dir="ltr">Ya le toca a OpenAI correr hacia adelante con los modelos o3 para sacar ventaja, porque la ballena china viene por detrás a comerse todo el mercado. <a href="https://t.co/6ptS3LH5bW">pic.twitter.com/6ptS3LH5bW</a></p>&mdash; Carlos Santana (@DotCSV) <a href="https://twitter.com/DotCSV/status/1881328343066525937?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div>
-            </div><p class='mt-6'>Los nuevos modelos de DeepSeek, con un costo de tokens de salida más bajo que el de OpenAI, están generando presión sobre la empresa para que avance con sus próximos modelos o3, ante la competencia creciente del mercado.</p><br></br><video controls class="w-full rounded-lg mb-4 mt-6">
-                                    <source src="https://video.twimg.com/tweet_video/GhvSJ2TWwAA3mFk.mp4" type="video/mp4">
-                                    Tu navegador no soporta la reproducción de este video.
-                                </video><br></br><br></br>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleDropdown(this)"
-                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                </button>
-                <h3 class="text-2xl font-semibold mb-4">DeepSeek R1 ofrece precios competitivos</h3>
-            </div>
-            <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Wow! Deepseeks R1 is over 27x cheaper than 01 🤯<br><br>Deepseek Reasoner<br>• $0.55 / 1M Input<br>• $2.19 / 1M Output<br><br>OpenAI 01<br>• $15 / 1M Input<br>• $60 / 1M Output<br><br>and you have tons of opens if you want an alternative for 01-mini with the R1 distilled models</p>&mdash; Caleb (@calebfahlgren) <a href="https://twitter.com/calebfahlgren/status/1881332657885413886?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div>
-            </div><p class='mt-6'>El modelo DeepSeek R1 se presenta como una opción más económica que OpenAI 01, con precios de $0.55 por 1M de entradas y $2.19 por 1M de salidas, en comparación con los $15 y $60 de OpenAI, respectivamente.</p><br></br><br></br>
+            </div><p class='mt-6'>Históricamente, las tecnologías no revolucionan la productividad de inmediato. Aunque se podría argumentar que la IA es diferente, la expectativa es que pasen años antes de que se vea su verdadero impacto en el trabajo.</p><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -856,10 +906,10 @@
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Un análisis reciente plantea la pregunta de si los nuevos modelos de IA de China pueden rivalizar con los sistemas líderes como los de OpenAI. Un nuevo trabajo de DeepSeek introduce sus hallazgos.</p><br></br><div class="image-container">
+            </div><p class='mt-6'>Se cuestiona si los nuevos modelos de IA de China pueden rivalizar con los sistemas líderes como OpenAI. Un reciente estudio de DeepSeek explora esta posibilidad.</p><br></br><div class="image-container">
                                     <img id="thumbnail" src="https://pbs.twimg.com/media/GhvNkTibMAAT_kF.jpg" alt="">
                                 </div><br></br></section><section class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-3xl font-bold mb-4 underline text-center">Comportamiento y Sistemas de IA</h2><br></br>
+                <h2 class="text-3xl font-bold mb-4 underline text-center">Gestión de Proyectos en IA</h2><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -869,16 +919,14 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Comportamiento emergente en IA</h3>
+                <h3 class="text-2xl font-semibold mb-4">Automatización de Flujos de Trabajo con IA</h3>
             </div>
             <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Prompt&#39;s hardly grammatically correct. Incredible. <a href="https://t.co/wI3d7Be5An">https://t.co/wI3d7Be5An</a> <a href="https://t.co/cfSuQQEck4">pic.twitter.com/cfSuQQEck4</a></p>&mdash; Minh Nhat Nguyen (@menhguin) <a href="https://twitter.com/menhguin/status/1881339505359339931?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">🤔 What If You Could Automate Complex Workflows Using Plain English?<br><br>Imagine being able to delegate tasks like market research, press reviews, or AI article analysis—all by simply describing what you need in plain English. <br><br>Sounds like magic, right? ....<br><br>Well, it’s now a…</p>&mdash; Raphael Mansuy 🍵 (@raphaelmansuy) <a href="https://twitter.com/raphaelmansuy/status/1881248558252433792?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Se discute la falta de técnicas como MCTS y PRM en la evaluación de modelos de IA, sugiriendo que el comportamiento emergente y el aprendizaje por refuerzo simple podrían ser claves para entender mejor cómo funcionan estos modelos.</p><br></br><div class="image-container">
-                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhvcTyXb0AAI1Vw.jpg" alt="">
-                                </div><br></br><br></br>
+            </div><p class='mt-6'>Se ha presentado una nueva herramienta que permite automatizar flujos de trabajo complejos utilizando lenguaje natural. Esta innovación permitirá a los usuarios delegar tareas como investigación de mercado o análisis de artículos de IA simplemente describiendo lo que necesitan en inglés sencillo.</p><br></br><br></br>
             <div class="flex items-center gap-4">
                 <button onclick="toggleDropdown(this)"
                     class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
@@ -888,74 +936,14 @@
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
-                <h3 class="text-2xl font-semibold mb-4">Complejidad de Sistemas de IA</h3>
+                <h3 class="text-2xl font-semibold mb-4">Optimización en la Creación de Documentos de Requerimientos de Producto (PRD)</h3>
             </div>
             <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">AIs working in the world can create complex systems with unexpected &amp; risky feedback loops.<br><br>Each output affects the world, affecting inputs, affecting outputs... Even simple loops can drive optimization behavior, making systems turn extreme. No training needed, just interaction. <a href="https://t.co/MFtqf2ttds">pic.twitter.com/MFtqf2ttds</a></p>&mdash; Ethan Mollick (@emollick) <a href="https://twitter.com/emollick/status/1881027771734093912?ref_src=twsrc%5Etfw">January 19, 2025</a></blockquote>
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">For everyone asking how I create PRDs:<br><br>Writing PRDs used to take forever, until I discovered this workflow that’s fast AND delivers top-tier results.<br><br>Here’s how I do it:<br><br>1. Start by throwing everything the client shared into ChatGPT.<br>2. Ask it to list core features + nice…</p>&mdash; Prajwal Tomar (@PrajwalTomar_) <a href="https://twitter.com/PrajwalTomar_/status/1880628902680199401?ref_src=twsrc%5Etfw">January 18, 2025</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </div>
-            </div><p class='mt-6'>Los AIs están creando sistemas complejos que generan bucles de retroalimentación inesperados y riesgosos. Cada salida afecta al mundo, lo que a su vez influye en las entradas y salidas, impulsando comportamientos de optimización sin necesidad de entrenamiento, solo mediante la interacción.</p><br></br><div class="image-container">
-                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhrAyboWgAA6aLw.jpg" alt="">
-                                </div><br></br><div class="image-container">
-                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhrAybnXsAE_K_B.jpg" alt="">
-                                </div><br></br><div class="image-container">
-                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhrAybqW0AApQVD.jpg" alt="">
-                                </div><br></br><br></br>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleDropdown(this)"
-                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                </button>
-                <h3 class="text-2xl font-semibold mb-4">Generación de Datos Sintéticos para LLMs</h3>
-            </div>
-            <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Synthetic data for fine-tuning and evaluating LLMs - private and open source! <br><br>Runs on consumer hardware.<br>Only 15 lines of code<br>Powered by Qwen2.5 32B, MLX and distilabel.<br><br>code: <a href="https://t.co/Y58Vykbfvg">https://t.co/Y58Vykbfvg</a>  <br>data: <a href="https://t.co/bJSkLARCbs">https://t.co/bJSkLARCbs</a> <br>library: <a href="https://t.co/R9IwmIGeuy">https://t.co/R9IwmIGeuy</a> <a href="https://t.co/eZ6oVRcPvg">pic.twitter.com/eZ6oVRcPvg</a></p>&mdash; David Berenstein (@davidberenstei) <a href="https://twitter.com/davidberenstei/status/1881260543291367563?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div>
-            </div><p class='mt-6'>Se ha desarrollado un generador de datos sintéticos para mejorar los sistemas de RAG, que funciona en hardware de consumo y requiere solo 15 líneas de código. Está impulsado por Qwen2.5 32B, MLX y distilabel.</p><br></br><div class="image-container">
-                                    <img id="thumbnail" src="https://pbs.twimg.com/media/GhuUflaXoAA3-CF.jpg" alt="">
-                                </div><br></br></section><section class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-3xl font-bold mb-4 underline text-center">Innovaciones en LLMs</h2><br></br>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleDropdown(this)"
-                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                </button>
-                <h3 class="text-2xl font-semibold mb-4">El guion de nuestra realidad y LLMs</h3>
-            </div>
-            <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="es" dir="ltr">Es como si el guion de nuestra realidad se estuviera escribiendo con un LLM con la temperatura muy alta.</p>&mdash; Carlos Santana (@DotCSV) <a href="https://twitter.com/DotCSV/status/1881103283710026068?ref_src=twsrc%5Etfw">January 19, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div>
-            </div><p class='mt-6'>Un usuario comenta que parece que el guion de nuestra realidad está siendo escrito por un LLM con alta temperatura. Esto sugiere una reflexión sobre la influencia de los modelos de lenguaje en la percepción de la realidad.</p><br></br><br></br>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleDropdown(this)"
-                    class="bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full p-2 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                </button>
-                <h3 class="text-2xl font-semibold mb-4">Construcción de procesos computacionales programables en LLMs</h3>
-            </div>
-            <div class="hidden mt-2">
-                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">there&#39;s almost certainly a way to build programmable computing processes inside the weights of an LLM. imma figure out what it is.</p>&mdash; Minh Nhat Nguyen (@menhguin) <a href="https://twitter.com/menhguin/status/1881350685570318707?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div>
-            </div><p class='mt-6'>Se especula sobre la posibilidad de construir procesos computacionales programables dentro de los pesos de los modelos de lenguaje (LLMs), sugiriendo un enfoque innovador para mejorar la funcionalidad y adaptabilidad de estos modelos.</p><br></br></section>
+            </div><p class='mt-6'>Un desarrollador comparte su flujo de trabajo optimizado para la creación de PRDs, lo que ha reducido significativamente el tiempo necesario para su elaboración. Este enfoque puede ser clave para mejorar la eficiencia en la gestión de proyectos de IA.</p><br></br></section>
     </main>
 
     <footer class="bg-blue-600 text-white text-center py-4">
@@ -968,48 +956,152 @@
     </div>
 
     <div id="popup-content" class="popup-overlay">
-        <div id="popup-html-content" class="bg-white rounded-lg p-6 w-[600px] mx-auto"></div>
-        <button class="close-btn" id="close-btn-content">X</button>
+        <div id="popup-html-content" class="bg-white rounded-lg p-6 w-[600px] mx-auto">
+            <button class="close-btn" id="close-btn-content">X</button>
+            <div id="tweet-content-container"></div>
+        </div>
     </div>
 
     <script>
-        // Elementos del DOM
-        const thumbnails = document.querySelectorAll('.image-container img');
-        const popupImage = document.getElementById('popup-image');
-        const popupContent = document.getElementById('popup-content'); // Popup para contenido HTML
-        const closeBtnImage = document.getElementById('close-btn-image'); // Botón de cierre del popup de imagen
-        const closeBtnContent = document.getElementById('close-btn-content'); // Botón de cierre del popup de contenido HTML
+        class ImageZoom {
+            constructor() {
+                this.popup = document.getElementById('popup-image');
+                this.image = document.getElementById('popup-image-content');
+                this.closeBtn = document.getElementById('close-btn-image');
+                this.thumbnails = document.querySelectorAll('.image-container img');
 
-        // Variables para el zoom
-        let isZoomedIn = false;
-        let isDragging = false;
-        let startX, startY, translateX = 0, translateY = 0;
+                this.scale = 1;
+                this.translateX = 0;
+                this.translateY = 0;
+                this.lastX = 0;
+                this.lastY = 0;
+                this.isDragging = false;
 
-        // Evento para mostrar el popup de imagen
-        thumbnails.forEach(thumbnail => {
-            thumbnail.addEventListener('click', () => {
-                popupImage.src = thumbnail.src; // Carga la imagen
-                document.getElementById('popup-image-overlay').classList.add('show'); // Muestra el popup de imagen
-            });
-        });
+                this.initializeEvents();
+            }
 
-        // Evento para cerrar el popup de imagen
-        closeBtnImage.addEventListener('click', () => {
-            document.getElementById('popup-image-overlay').classList.remove('show');
-            resetZoom();
-        });
+            initializeEvents() {
+                // Thumbnail clicks
+                this.thumbnails.forEach(thumb => {
+                    thumb.addEventListener('click', () => this.openImage(thumb.src));
+                });
 
-        // Función para mostrar el popup de contenido HTML
+                // Zoom toggle
+                this.image.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.toggleZoom(e);
+                });
+
+                // Dragging events
+                this.image.addEventListener('mousedown', (e) => this.startDrag(e));
+                window.addEventListener('mousemove', (e) => this.drag(e));
+                window.addEventListener('mouseup', () => this.endDrag());
+
+                // Close popup
+                this.closeBtn.addEventListener('click', () => this.closePopup());
+                this.popup.addEventListener('click', (e) => {
+                    if (e.target === this.popup) this.closePopup();
+                });
+
+                // Prevent image drag default behavior
+                this.image.addEventListener('dragstart', (e) => e.preventDefault());
+            }
+
+            openImage(src) {
+                this.image.src = src;
+                this.popup.classList.add('show');
+                this.resetZoom();
+            }
+
+            closePopup() {
+                this.popup.classList.remove('show');
+                this.popup.classList.remove('zoomed');
+                this.resetZoom();
+            }
+
+            toggleZoom(e) {
+                if (this.scale === 1) {
+                    // Zoom in
+                    this.scale = 2.5;
+
+                    // Calculate cursor position relative to image
+                    const rect = this.image.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    // Center zoom on cursor position
+                    this.translateX = (rect.width / 2 - x) * (this.scale - 1) / this.scale;
+                    this.translateY = (rect.height / 2 - y) * (this.scale - 1) / this.scale;
+
+                    this.popup.classList.add('zoomed');
+                } else {
+                    this.resetZoom();
+                }
+                this.updateTransform();
+            }
+
+            startDrag(e) {
+                if (this.scale === 1) return;
+
+                this.isDragging = true;
+                this.popup.classList.add('grabbing');
+                this.lastX = e.clientX;
+                this.lastY = e.clientY;
+            }
+
+            drag(e) {
+                if (!this.isDragging) return;
+
+                const deltaX = e.clientX - this.lastX;
+                const deltaY = e.clientY - this.lastY;
+
+                this.translateX += deltaX / this.scale;
+                this.translateY += deltaY / this.scale;
+
+                this.lastX = e.clientX;
+                this.lastY = e.clientY;
+
+                this.updateTransform();
+            }
+
+            endDrag() {
+                this.isDragging = false;
+                this.popup.classList.remove('grabbing');
+            }
+
+            resetZoom() {
+                this.scale = 1;
+                this.translateX = 0;
+                this.translateY = 0;
+                this.popup.classList.remove('zoomed');
+                this.updateTransform();
+            }
+
+            updateTransform() {
+                // Limit translation based on zoom level and image size
+                const rect = this.image.getBoundingClientRect();
+                const maxX = rect.width * (this.scale - 1) / (2 * this.scale);
+                const maxY = rect.height * (this.scale - 1) / (2 * this.scale);
+
+                this.translateX = Math.max(-maxX, Math.min(maxX, this.translateX));
+                this.translateY = Math.max(-maxY, Math.min(maxY, this.translateY));
+
+                this.image.style.transform = `scale(${this.scale}) translate(${this.translateX}px, ${this.translateY}px)`;
+            }
+        }
+
+        // Initialize zoom functionality
+        const imageZoom = new ImageZoom();
+
+        // Resto del código para el popup de contenido HTML
         function toggleDropdown(button) {
             const contentDiv = button.parentElement.nextElementSibling;
             const tweetContent = contentDiv.innerHTML;
 
             if (contentDiv.classList.contains("hidden")) {
-                // Mostrar el contenido en el popup
-                document.getElementById('popup-html-content').innerHTML = tweetContent;
+                document.getElementById('tweet-content-container').innerHTML = tweetContent;
                 document.getElementById('popup-content').classList.add('show');
 
-                // Recargar el widget de Twitter si es necesario
                 if (window.twttr && window.twttr.widgets) {
                     window.twttr.widgets.load();
                 }
@@ -1017,70 +1109,13 @@
                 document.getElementById('popup-content').classList.remove('show');
             }
 
-            // Mantener el div original siempre oculto
             contentDiv.classList.add("hidden");
         }
 
-        // Evento para cerrar el popup de contenido HTML
         document.getElementById('close-btn-content').addEventListener('click', () => {
             document.getElementById('popup-content').classList.remove('show');
-            document.getElementById('popup-html-content').innerHTML = '';
+            document.getElementById('tweet-content-container').innerHTML = '';
         });
-
-        // Click para alternar entre zoom in y zoom out en la imagen
-        popupImage.addEventListener('click', () => {
-            if (isZoomedIn) {
-                resetZoom();
-            } else {
-                zoomIn();
-            }
-        });
-
-        // Drag para mover la imagen mientras está ampliada
-        popupImage.addEventListener('mousedown', (e) => {
-            if (!isZoomedIn) return;
-            isDragging = true;
-            startX = e.clientX - translateX;
-            startY = e.clientY - translateY;
-            popupImage.style.cursor = 'grabbing';
-        });
-
-        popupImage.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            translateX = e.clientX - startX;
-            translateY = e.clientY - startY;
-            updateTransform();
-        });
-
-        popupImage.addEventListener('mouseup', () => {
-            isDragging = false;
-            popupImage.style.cursor = 'grab';
-        });
-
-        popupImage.addEventListener('mouseleave', () => {
-            isDragging = false;
-            popupImage.style.cursor = 'grab';
-        });
-
-        // Funciones de zoom
-        function zoomIn() {
-            isZoomedIn = true;
-            popupImage.style.transform = `scale(2)`;
-            popupImage.style.cursor = 'grab';
-        }
-
-        function resetZoom() {
-            isZoomedIn = false;
-            translateX = 0;
-            translateY = 0;
-            popupImage.style.transform = `scale(1)`;
-        }
-
-        // Actualizar posición durante el drag
-        function updateTransform() {
-            popupImage.style.transform = `scale(2) translate(${translateX}px, ${translateY}px)`;
-        }
-
     </script>
 
 </body>
